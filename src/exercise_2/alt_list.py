@@ -156,8 +156,14 @@ class AltList:
                 # If the element is found, remove it from the list
                 if previous:
                     previous.next = current.next
+                    # If removing the last element, update the tail
+                    if previous.next is None:
+                        self.tail = previous
                 else:
                     self.head = current.next
+                    # If the list becomes empty, update the tail to None
+                    if self.head is None:
+                        self.tail = None
                 return
             previous = current
             current = current.next
