@@ -178,13 +178,19 @@ class AltList:
             current = current.next
 
         if last:
-            previous, current = last
-            if previous:
-                previous.next = current.next
+            last_occurrence_prev, last_occurrence = last
+            # If the last occurrence is the first element
+            if last_occurrence_prev is None:
+                self.head = last_occurrence.next
+                # If the list becomes empty, update the tail to None
+                if self.head is None:
+                    self.tail = None
             else:
-                self.head = current.next
-        else:
-            return
+                last_occurrence_prev.next = last_occurrence.next
+                # If removing the last element, update the tail
+                if last_occurrence_prev.next is None:
+                    self.tail = last_occurrence_prev
+                return
         
             
 
