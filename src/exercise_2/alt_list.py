@@ -114,28 +114,31 @@ class AltList:
         exceeds the length of the list or is negative, does nothing. Take care of the
         case where the list is empty."""
 
-        # empty case
-        if self.head is None:
-            return
-        
-        if index < 0:
+        # empty case or invalid index
+        if self.head is None or index < 0:
             return
 
         # remove first element
         if index == 0:
             # If the first element is to be removed, update the head
             self.head = self.head.next
+            # check if the list is empty
+            if self.head is None:
+                self.tail = None
             return
         
         # remove non first element
         counter = 0
         current = self.head
         # Traverse the list to find the element at the given index
-        while current:
+
+        while current.next:  # Ensuring current.next exists simplifies logic for accessing current.next.next
             if counter == index - 1:
-                # Update the next pointer of the previous node and check if the next node exists
-                current.next = current.next.next if current.next else None
-                self.tail = current
+                if current.next.next:
+                    current.next = current.next.next
+                else:  # Removing the last element
+                    current.next = None
+                    self.tail = current  # Update the tail
                 return
             current = current.next
             counter += 1
@@ -204,4 +207,3 @@ class AltList:
                 next = next.next
             current = current.next
         
-
