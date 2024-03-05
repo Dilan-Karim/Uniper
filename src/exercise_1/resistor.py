@@ -16,11 +16,20 @@ class Resistor(abc.ABC):
         resistance is the reciprocal of the sum of the reciprocals of the resistances
         of the two resistors.
     """
-
+    def __init__(self, r: float, resistor_count: int = 1):
+        if r <= 0:
+            raise ValueError("The resistance must be positive")
+        self._resistance = r
+        self._resistor_count = resistor_count
+    
     @abc.abstractmethod
     def resistance(self) -> float:
         """Returns the resistance"""
 
+        return self._resistance
+
     @abc.abstractmethod
     def resistor_count(self) -> int:
         """Returns the resistor count"""
+
+        return self._resistor_count

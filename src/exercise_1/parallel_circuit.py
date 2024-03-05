@@ -2,11 +2,14 @@ from src.exercise_1.resistor import Resistor
 
 
 class ParallelCircuit(Resistor):
+    
     def __init__(self, r1: Resistor, r2: Resistor):
-        super().__init__()
+        r = 1 / (1 / r1.resistance() + 1 / r2.resistance())
+        total_resistor_count = r1.resistor_count() + r2.resistor_count()
+        super().__init__(r, total_resistor_count)
 
     def resistance(self) -> float:
-        return -1.0
+        return self._resistance
 
     def resistor_count(self) -> int:
-        return 0
+        return self._resistor_count
